@@ -1,0 +1,20 @@
+```python
+def choose_action(observation):
+    cos_theta1, sin_theta1, cos_theta2, sin_theta2, theta_dot1, theta_dot2 = observation
+
+    angle1 = math.atan2(sin_theta1, cos_theta1)
+    angle2 = math.atan2(sin_theta2, cos_theta2)
+
+    angle_threshold = 0.05
+    angular_velocity_threshold = 0.05
+
+    if abs(angle1) > angle_threshold or abs(theta_dot1) > angular_velocity_threshold:
+        if theta_dot1 > 0:
+            action = 0  # Apply left torque
+        else:
+            action = 2  # Apply right torque
+    else:
+        action = 1  # No torque
+
+    return action
+```

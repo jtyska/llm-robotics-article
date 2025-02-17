@@ -1,0 +1,16 @@
+1. **If** `|theta| > π/4`:
+   - **IF** `x < 0`:
+     - **THEN** `torque = min(2.0, 1.5 * abs(x))`
+   - **ELSE IF** `x > 0`:
+     - **THEN** `torque = max(-2.0, -1.5 * abs(x))`
+
+2. **If** `|theta| <= π/4`:
+   - **IF** `angular_velocity > 0`:
+     - **THEN** `torque = max(-2.0, -0.5 * angular_velocity)`
+   - **ELSE IF** `angular_velocity < 0`:
+     - **THEN** `torque = min(2.0, 0.5 * abs(angular_velocity))`
+   - **ELSE**:
+     - **IF** `x < 0`:
+       - **THEN** `torque = min(2.0, 0.1 * abs(x))`
+     - **ELSE IF** `x > 0`:
+       - **THEN** `torque = max(-2.0, -0.1 * abs(x))`

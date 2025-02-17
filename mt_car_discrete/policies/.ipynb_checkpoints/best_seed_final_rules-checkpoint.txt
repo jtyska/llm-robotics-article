@@ -1,0 +1,15 @@
+```python
+def choose_action(car_position, car_velocity):
+    if car_position < -0.25:
+        return 2 if car_velocity > 0 else 0
+    elif -0.25 <= car_position < 0.4:
+        return 2 if car_velocity > 0 else 0
+    elif 0.4 <= car_position < 0.48:
+        return 1 if car_velocity > 0.03 else 2
+    elif 0.48 <= car_position < 0.5:
+        return 1 if car_velocity > 0.02 else 2
+    elif car_position >= 0.5:
+        return 1
+    else:
+        return 1
+```

@@ -1,0 +1,12 @@
+            ```plaintext
+IF pole_angle > 0.1 AND pole_angular_velocity > 0 THEN
+    action = -3.0 * min(1.0, abs(pole_angle) + abs(pole_angular_velocity) / 2)
+ELSE IF pole_angle < -0.1 AND pole_angular_velocity < 0 THEN
+    action = 3.0 * min(1.0, abs(pole_angle) + abs(pole_angular_velocity) / 2)
+ELSE IF cart_position > 0.5 THEN
+    action = -1.5
+ELSE IF cart_position < -0.5 THEN
+    action = 1.5
+ELSE
+    action = 0.0
+```

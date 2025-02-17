@@ -1,0 +1,17 @@
+1. **IF** car velocity ≤ 0 AND car position < -0.1:
+   - **THEN** action = 2
+
+2. **IF** car velocity > 0 AND car position > -0.4:
+   - **THEN** action = 2
+
+3. **IF** car velocity > 0 AND (car position ≈ -0.5 OR car position < 0):
+   - **THEN** action = 1
+
+4. **IF** car velocity > 0 AND car position ≥ 0.4:
+   - **THEN** action = 1
+
+5. **IF** car velocity < 0 AND car position < 0:
+   - **THEN** action = 2
+
+6. **IF** none of the above conditions are met:
+   - **THEN** action = 1
