@@ -1,0 +1,15 @@
+1. **Pole Angle Correction:**
+   - IF Pole Angle < 0 THEN Move Right (2)
+   - ELSE IF Pole Angle > 0 THEN Move Left (1)
+
+2. **Pole Angular Velocity Correction:**
+   - IF Pole Angular Velocity < 0 THEN Move Right (2)
+   - ELSE IF Pole Angular Velocity > 0 THEN Move Left (1)
+
+3. **Cart Position Correction:**
+   - IF Cart Position < -1 THEN Move Right (2)
+   - ELSE IF Cart Position > 1 THEN Move Left (1)
+
+4. **Cart Velocity Correction:**
+   - IF Cart Velocity < 0 AND Cart Position < -0.5 THEN Move Right (2)
+   - ELSE IF Cart Velocity > 0 AND Cart Position > 0.5 THEN Move Left (1)

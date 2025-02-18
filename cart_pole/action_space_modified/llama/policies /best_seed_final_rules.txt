@@ -1,0 +1,6 @@
+1. IF `abs(cart_position) > 2` and `cart_position < 0` THEN move left(1)
+2. IF `abs(cart_position) > 2` and `cart_position > 0` THEN move right(2)
+3. IF `pole_angle * pole_angular_velocity > 0` and `pole_angle < 0` THEN move left(1)
+4. IF `pole_angle * pole_angular_velocity > 0` and `pole_angle > 0` THEN move right(2) 
+5. IF `abs(pole_angular_velocity)` > threshold AND `cart_position < 0` THEN move left(1)
+6. IF `abs(pole_angular_velocity)` > threshold AND `cart_position > 0` THEN move right(2)

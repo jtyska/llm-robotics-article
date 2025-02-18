@@ -1,0 +1,20 @@
+1. **IF** Pole angle > 0 AND Pole angular velocity > 0, 
+   **THEN** Move left(1).
+
+2. **IF** Pole angle < 0 AND Pole angular velocity < 0, 
+   **THEN** Move right(2).
+
+3. **IF** Cart position > 0 AND Pole angle > 0, 
+   **THEN** Move left(1).
+
+4. **IF** Cart position < 0 AND Pole angle < 0, 
+   **THEN** Move right(2).
+
+5. **IF** (Cart velocity > 0 AND Cart position > 0) OR (Cart velocity < 0 AND Cart position < 0), 
+   **THEN** Move in the direction that reduces cart velocity or brings it closer to the center considering pole angle.
+
+6. **IF** Pole angle > 0, 
+   **THEN** Move right(2).
+
+7. **IF** Pole angle < 0, 
+   **THEN** Move left(1).

@@ -38,10 +38,15 @@
       height: 300px;
       border: none;
     }
+    button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>LLM Robotics Article Viewer</h1>
+  <h1>LLM Robotics Article Data Explorer</h1>
   
   <div class="menu">
     <label for="envSelect">Select Environment: </label>
@@ -59,12 +64,34 @@
       <option value="best">Best</option>
       <option value="worst">Worst</option>
     </select>
+    &nbsp;&nbsp;
+    <!-- Extra menus for cart_pole only -->
+    <span id="versionContainer" style="display:none;">
+      <label for="versionSelect">Select Experiment Version: </label>
+      <select id="versionSelect">
+        <option value="action_space_modified">Action Space Modified</option>
+        <option value="observation_action_space_modified">Observation Action Space Modified</option>
+      </select>
+    </span>
+    &nbsp;&nbsp;
+    <span id="modelContainer" style="display:none;">
+      <label for="modelSelect">Select Model: </label>
+      <select id="modelSelect">
+        <option value="deepseek">deepseek</option>
+        <option value="llama">llama</option>
+        <option value="mistral">mistral</option>
+        <option value="qwen">qwen</option>
+      </select>
+    </span>
+    &nbsp;&nbsp;
+    <button id="viewLogBtn">View Log</button>
+    <button id="playBothBtn">Play Both Videos</button>
   </div>
   
   <div class="container">
-    <!-- Initial Video Column -->
+    <!-- Initial Strategy Column -->
     <div class="video-container">
-      <h2>Initial Video</h2>
+      <h2>Initial Strategy</h2>
       <video id="initialVideo" controls>
         Your browser does not support the video tag.
       </video>
@@ -78,9 +105,15 @@
       </details>
     </div>
     
-    <!-- Final Video Column -->
+    <!-- Final (Best) Strategy Column -->
     <div class="video-container">
-      <h2>Final Video</h2>
+      <h2>
+        Best Strategy 
+        <!-- Toggle for pendulum -->
+        <button id="toggleFinalBtn" style="display:none;">Watch Another Trial</button>
+        <!-- Extra toggle for Cart Pole special case -->
+        <button id="toggleCartPoleFinalBtn" style="display:none;">Toggle to Fail</button>
+      </h2>
       <video id="finalVideo" controls>
         Your browser does not support the video tag.
       </video>
@@ -96,37 +129,141 @@
   </div>
   
   <script>
-    // Updates video sources and policy file links based on the selected environment and seed.
+    // Global toggle variables.
+    let finalVideoMode = "original";    // For pendulum.
+    let cartPoleFinalMode = "success";    // For Cart Pole special case.
+    
+    // Updates file paths for videos and policies based on current selections.
     function updateContent() {
-      alert('HI')
-      var env = document.getElementById('envSelect').value;
-      var seed = document.getElementById('seedSelect').value;
+      const env = document.getElementById('envSelect').value;
+      const seed = document.getElementById('seedSelect').value;
       
-      // Construct file paths.
-      // Videos: the filenames follow the pattern "seed_seed_best_initial.mp4" and "seed_seed_best_final_t14.mp4"
-      var initialVideoPath = env + "/videos/" + seed + "_seed_best_initial.mp4";
-      var finalVideoPath = env + "/videos/" + seed + "_seed_best_final_t14.mp4";
+      let basePath = env;
       
-      // Policies: the filenames are "seed_seed_final_code.py" and "seed_seed_final_rules.py"
-      var codePath = env + "/policies/" + seed + "_seed_final_code.py";
-      var rulesPath = env + "/policies/" + seed + "_seed_final_rules.py";
+      // For Cart Pole, include version and model.
+      if (env === "cart_pole") {
+        document.getElementById('versionContainer').style.display = "inline-block";
+        document.getElementById('modelContainer').style.display = "inline-block";
+        const version = document.getElementById('versionSelect').value;
+        const model = document.getElementById('modelSelect').value;
+        basePath = `${env}/${version}/${model}`;
+      } else {
+        document.getElementById('versionContainer').style.display = "none";
+        document.getElementById('modelContainer').style.display = "none";
+      }
       
-      // Update video elements.
+      // Update initial video.
+      const initialVideoPath = `${basePath}/videos/${seed}_seed_best_initial.mp4`;
       document.getElementById('initialVideo').src = initialVideoPath;
+      
+      // Determine final video path.
+      let finalVideoPath = "";
+      
+      if (env === "pendulum") {
+        // Pendulum: toggle between original and same_strategy.
+        document.getElementById('toggleFinalBtn').style.display = "inline-block";
+        document.getElementById('toggleCartPoleFinalBtn').style.display = "none";
+        finalVideoPath = (finalVideoMode === "original") ?
+            `${env}/videos/${seed}_seed_best_final.mp4` :
+            `${env}/videos/${seed}_seed_best_final_same_strategy.mp4`;
+      } else if (env === "cart_pole") {
+        // Cart Pole special case.
+        const version = document.getElementById('versionSelect').value;
+        const model = document.getElementById('modelSelect').value;
+        if (version === "action_space_modified" && model === "deepseek" && seed === "worst") {
+          // Show extra Cart Pole toggle button.
+          document.getElementById('toggleCartPoleFinalBtn').style.display = "inline-block";
+          finalVideoPath = (cartPoleFinalMode === "success") ?
+              `${basePath}/videos/${seed}_seed_best_final_success.mp4` :
+              `${basePath}/videos/${seed}_seed_best_final_fail.mp4`;
+          document.getElementById('toggleFinalBtn').style.display = "none";
+        } else {
+          document.getElementById('toggleCartPoleFinalBtn').style.display = "none";
+          finalVideoPath = `${basePath}/videos/${seed}_seed_best_final.mp4`;
+        }
+        // Reset pendulum toggle when switching away.
+        finalVideoMode = "original";
+      } else {
+        // Other environments.
+        document.getElementById('toggleFinalBtn').style.display = "none";
+        document.getElementById('toggleCartPoleFinalBtn').style.display = "none";
+        finalVideoPath = `${basePath}/videos/${seed}_seed_best_final.mp4`;
+        finalVideoMode = "original";
+        cartPoleFinalMode = "success";
+      }
+      
       document.getElementById('finalVideo').src = finalVideoPath;
       
-      // Update iframes in the details elements.
-      document.getElementById('initialCodeFrame').src = codePath;
-      document.getElementById('finalCodeFrame').src = codePath;
-      document.getElementById('initialRulesFrame').src = rulesPath;
-      document.getElementById('finalRulesFrame').src = rulesPath;
+      // Update policy file paths.
+      const codePath_best = `${basePath}/policies/${seed}_seed_final_code.py`;
+      const rulesPath_best = `${basePath}/policies/${seed}_seed_final_rules.txt`;
+      const codePath_initial = `${basePath}/policies/${seed}_seed_initial_code.py`;
+      const rulesPath_initial = `${basePath}/policies/${seed}_seed_initial_rules.txt`;
+      
+      document.getElementById('initialCodeFrame').src = codePath_initial;
+      document.getElementById('finalCodeFrame').src = codePath_best;
+      document.getElementById('initialRulesFrame').src = rulesPath_initial;
+      document.getElementById('finalRulesFrame').src = rulesPath_best;
     }
     
-    // Listen to changes in the drop-down menus.
+    // Toggle for pendulum final video mode.
+    document.getElementById('toggleFinalBtn').addEventListener('click', function() {
+      finalVideoMode = (finalVideoMode === "original") ? "same_strategy" : "original";
+      const env = document.getElementById('envSelect').value;
+      const seed = document.getElementById('seedSelect').value;
+      let finalVideoPath = "";
+      if (finalVideoMode === "original") {
+        finalVideoPath = `${env}/videos/${seed}_seed_best_final.mp4`;
+        this.textContent = "Watch Another Trial";
+      } else {
+        finalVideoPath = `${env}/videos/${seed}_seed_best_final_same_strategy.mp4`;
+        this.textContent = "Watch Best Trial";
+      }
+      document.getElementById('finalVideo').src = finalVideoPath;
+    });
+    
+    // Toggle for Cart Pole special case.
+    document.getElementById('toggleCartPoleFinalBtn').addEventListener('click', function() {
+      cartPoleFinalMode = (cartPoleFinalMode === "success") ? "fail" : "success";
+      const env = document.getElementById('envSelect').value;
+      const seed = document.getElementById('seedSelect').value;
+      const version = document.getElementById('versionSelect').value;
+      const model = document.getElementById('modelSelect').value;
+      const basePath = `${env}/${version}/${model}`;
+      let finalVideoPath = (cartPoleFinalMode === "success") ?
+          `${basePath}/videos/${seed}_seed_best_final_success.mp4` :
+          `${basePath}/videos/${seed}_seed_best_final_fail.mp4`;
+      document.getElementById('finalVideo').src = finalVideoPath;
+      this.textContent = (cartPoleFinalMode === "success") ? "Toggle to Fail" : "Toggle to Success";
+    });
+    
+    // Event listeners for dropdown changes.
     document.getElementById('envSelect').addEventListener('change', updateContent);
     document.getElementById('seedSelect').addEventListener('change', updateContent);
+    document.getElementById('versionSelect').addEventListener('change', updateContent);
+    document.getElementById('modelSelect').addEventListener('change', updateContent);
     
-    // Initialize the page content.
+    // Button to view the log file in a new window.
+    document.getElementById('viewLogBtn').addEventListener('click', function() {
+      let env = document.getElementById('envSelect').value;
+      let seed = document.getElementById('seedSelect').value;
+      let basePath = env;
+      if (env === "cart_pole") {
+        const version = document.getElementById('versionSelect').value;
+        const model = document.getElementById('modelSelect').value;
+        basePath = `${env}/${version}/${model}`;
+      }
+      const logPath = `${basePath}/logs/${seed}_seed.log`;
+      window.open(logPath, '_blank');
+    });
+    
+    // Button to play both videos simultaneously.
+    document.getElementById('playBothBtn').addEventListener('click', function() {
+      document.getElementById('initialVideo').play();
+      document.getElementById('finalVideo').play();
+    });
+    
+    // Initialize the page.
     updateContent();
   </script>
 </body>

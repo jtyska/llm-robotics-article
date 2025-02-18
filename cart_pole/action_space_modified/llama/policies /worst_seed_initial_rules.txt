@@ -1,0 +1,7 @@
+1. **If** pole angle < 0 **and** pole angular velocity < 0, **then** move left (1).
+2. **If** cart position > 1.5 **or** cart velocity > 0, **then** move left (1).
+3. **If** pole angle > 0 **and** pole angular velocity > 0, **then** move right (2).
+4. **If** cart position < -1.5 **or** cart velocity < 0, **then** move right (2).
+5. **Else**, 
+   * **If** pole angle > 0, **then** move right (2).
+   * **If** pole angle < 0, **then** move left (1).

@@ -1,0 +1,11 @@
+```plaintext
+IF pole angle > 0.2 THEN Move Left (1)
+ELSE IF pole angle < -0.2 THEN Move Right (2)
+IF cart position < -2.4 THEN Move Right (2)
+ELSE IF cart position > 2.4 THEN Move Left (1)
+IF pole angular velocity < -0.5 AND pole angle < -0.3 THEN Move Right (2)
+ELSE IF pole angular velocity > 0.5 AND pole angle > 0.3 THEN Move Left (1)
+IF cart velocity < -1.5 THEN Move Right (2)
+ELSE IF cart velocity > 1.5 THEN Move Left (1)
+IF pole angle is between -0.1 and 0.1 AND cart position is between -1 and 1 THEN Apply Small Corrective Force in Opposite Direction of Cart Velocity with a reduced magnitude
+```

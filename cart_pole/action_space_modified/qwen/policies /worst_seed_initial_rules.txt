@@ -1,0 +1,6 @@
+- **IF** pole angle (θ) > 0.1 **THEN** move right (2)
+- **ELSE IF** pole angle (θ) < -0.1 **THEN** move left (1)
+- **ELSE IF** cart position (x) > 1.8 **THEN** move left (1)
+- **ELSE IF** cart position (x) < -1.8 **THEN** move right (2)
+- **ELSE IF** pole angle (θ) > 0 **THEN** move right (2)
+- **ELSE** move left (1)

@@ -1,0 +1,26 @@
+1. **IF** `cosine(theta1)` is close to -1 and `cosine(theta2 + theta1)` is close to -1 and both `angular velocity of theta1` and `angular velocity of theta2` are close to 0,
+   **THEN** apply a left torque (action = 0).
+
+2. **IF** `cosine(theta1)` is close to -1 and `cosine(theta2 + theta1)` is close to -1 but one or both of `angular velocity of theta1` or `angular velocity of theta2` are non-zero and positive,
+   **THEN** do not apply torque (action = 1).
+
+3. **IF** `cosine(theta1) < 0` and `angular velocity of theta1 > 0`,
+   **THEN** apply a right torque (action = 2).
+
+4. **IF** `cosine(theta1) < -0.5` and `angular velocity of theta1 < 0`,
+   **THEN** apply a left torque (action = 0).
+
+5. **IF** `cosine(theta1) > -0.5` and `cosine(theta2 + theta1)` is increasing,
+   **THEN** apply a right torque (action = 2).
+
+6. **IF** `cosine(theta1) > -0.5` and `cosine(theta2 + theta1) < -0.5` and `angular velocity of theta2 > 0`,
+   **THEN** do not apply torque (action = 1).
+
+7. **IF** `cosine(theta1) > -0.5` and `cosine(theta2 + theta1) > -0.5`,
+   **THEN** apply a right torque (action = 2).
+
+8. **IF** `cosine(theta1)` is increasing and `cosine(theta2 + theta1)` is increasing but the sum of their cosines is still below 1.0,
+   **THEN** continue applying a right torque (action = 2).
+
+9. **IF** `cosine(theta1)` and `cosine(theta2 + theta1)` are decreasing and one or both of `angular velocity of theta1` or `angular velocity of theta2` are close to their maximum values,
+   **THEN** do not apply torque (action = 1).

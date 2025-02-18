@@ -1,0 +1,6 @@
+1. IF pole angle > 0 AND angular velocity > 0 THEN move right (2)
+2. IF pole angle < 0 AND angular velocity < 0 THEN move left (1)
+3. IF cart position < -1.5 AND pole angle < 0 THEN move right (2) with probability 0.8, ELSE move left (1)
+4. IF cart position > 1.5 AND pole angle > 0 THEN move left (1) with probability 0.8, ELSE move right (2)
+5. IF pole angle > 0 AND angular velocity < 0 THEN move left (1) with probability 0.7, ELSE move right (2)
+6. IF pole angle < 0 AND angular velocity > 0 THEN move right (2) with probability 0.7, ELSE move left (1)

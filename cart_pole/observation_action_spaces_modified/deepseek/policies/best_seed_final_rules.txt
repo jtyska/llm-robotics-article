@@ -1,0 +1,7 @@
+IF pole_angle > 0.04 THEN action = right(2)  
+ELSE IF pole_angle < -0.04 THEN action = left(1)  
+ELSE IF pole_angular_velocity > 1.0 THEN action = right(2)  
+ELSE IF pole_angular_velocity < -1.0 THEN action = left(1)  
+ELSE IF cart_position > 0.10 THEN action = right(2)  
+ELSE IF cart_position < -0.10 THEN action = left(1)  
+ELSE action = right(2)

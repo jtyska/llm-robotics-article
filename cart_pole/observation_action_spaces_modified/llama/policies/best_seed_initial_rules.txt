@@ -1,0 +1,10 @@
+IF theta > 0.1 THEN action = 1  
+ELSE IF theta < -0.1 THEN action = 2  
+ELSE IF omega > 0.5 THEN action = 1  
+ELSE IF omega < -0.5 THEN action = 2  
+ELSE IF x > 1.0 THEN action = 1  
+ELSE IF x < -1.0 THEN action = 2  
+ELSE IF v > 0.5 THEN action = 1  
+ELSE IF v < -0.5 THEN action = 2  
+ELSE IF x > 0 THEN action = 1  
+ELSE action = 2
