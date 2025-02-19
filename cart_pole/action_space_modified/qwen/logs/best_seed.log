@@ -1,7 +1,7 @@
 --- Logging started at 2025-01-09 19:42:16 ---
 Experiment: CreateStrategyCompareUpdate
 Configuration Parameters:
-<Config object: {'experiment': <Config object: {'prompt': 'CreateStrategyCompareUpdate', 'steps_memory': 20, 'num_trials': 100, 'estimate_reward_trials': 20, 'generate_videos': True}>, 'llm': <Config object: {'llm_type': 'ollama', 'server_address': 'http://dgx.vlab.ufsc.br:11434/api', 'llm_id': 'qwen2.5:72b', 'seed': 6, 'temperature': 0.4}>, 'environment': <Config object: {'environment_name': 'gym', 'task': 'CartPole-v1', 'render_mode': 'rgb_array', 'mujoco_rendering': False}>}>
+<Config object: {'experiment': <Config object: {'prompt': 'CreateStrategyCompareUpdate', 'steps_memory': 20, 'num_trials': 100, 'estimate_reward_trials': 20, 'generate_videos': True}>, 'llm': <Config object: {'llm_type': 'ollama', 'server_address': 'SUPRESSED_FOR_PUBLICATION, 'llm_id': 'qwen2.5:72b', 'seed': 6, 'temperature': 0.4}>, 'environment': <Config object: {'environment_name': 'gym', 'task': 'CartPole-v1', 'render_mode': 'rgb_array', 'mujoco_rendering': False}>}>
 ---
 [2025-01-09 19:42:16] [INFO] Starting trial 1/100...
 [2025-01-09 19:42:16] [INFO] ### Getting overall strategy reasoning from the LLM...

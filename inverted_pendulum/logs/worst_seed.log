@@ -1,7 +1,7 @@
 --- Logging started at 2025-02-15 20:01:09 ---
 Experiment: CreateStrategyCompareUpdate
 Configuration Parameters:
-<Config object: {'experiment': <Config object: {'prompt': 'CreateStrategyCompareUpdate', 'steps_memory': 20, 'num_trials': 500, 'estimate_reward_trials': 20, 'generate_videos': False}>, 'llm': <Config object: {'llm_type': 'ollama', 'server_address': 'http://dgx.vlab.ufsc.br:11434/api', 'llm_id': 'qwen2.5:72b', 'seed': 9, 'temperature': 1.6, 'llm_id_coder': 'qwen2.5:72b'}>, 'environment': <Config object: {'environment_name': 'gym', 'task': 'InvertedPendulum-v4', 'render_mode': 'rgb_array', 'mujoco_rendering': False}>}>
+<Config object: {'experiment': <Config object: {'prompt': 'CreateStrategyCompareUpdate', 'steps_memory': 20, 'num_trials': 500, 'estimate_reward_trials': 20, 'generate_videos': False}>, 'llm': <Config object: {'llm_type': 'ollama', 'server_address': 'SUPRESSED_FOR_PUBLICATION, 'llm_id': 'qwen2.5:72b', 'seed': 9, 'temperature': 1.6, 'llm_id_coder': 'qwen2.5:72b'}>, 'environment': <Config object: {'environment_name': 'gym', 'task': 'InvertedPendulum-v4', 'render_mode': 'rgb_array', 'mujoco_rendering': False}>}>
 ---
 [2025-02-15 20:01:09] [INFO] Starting trial 1/500...
 [2025-02-15 20:01:09] [INFO] ### Getting overall strategy reasoning from the LLM...

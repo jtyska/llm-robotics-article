@@ -1,7 +1,7 @@
 --- Logging started at 2025-01-20 23:37:25 ---
 Experiment: CreateStrategyCompareUpdateDiscretized
 Configuration Parameters:
-<Config object: {'experiment': <Config object: {'prompt': 'CreateStrategyCompareUpdateDiscretized', 'steps_memory': 20, 'num_trials': 100, 'estimate_reward_trials': 20, 'generate_videos': True}>, 'llm': <Config object: {'llm_type': 'ollama', 'server_address': 'http://dgx.vlab.ufsc.br:11434/api', 'llm_id': 'mistral-large:123b', 'seed': 9, 'temperature': 0.8}>, 'environment': <Config object: {'environment_name': 'gym', 'task': 'CartPole-v1', 'render_mode': 'rgb_array', 'mujoco_rendering': False}>}>
+<Config object: {'experiment': <Config object: {'prompt': 'CreateStrategyCompareUpdateDiscretized', 'steps_memory': 20, 'num_trials': 100, 'estimate_reward_trials': 20, 'generate_videos': True}>, 'llm': <Config object: {'llm_type': 'ollama', 'server_address': 'SUPRESSED_FOR_PUBLICATION, 'llm_id': 'mistral-large:123b', 'seed': 9, 'temperature': 0.8}>, 'environment': <Config object: {'environment_name': 'gym', 'task': 'CartPole-v1', 'render_mode': 'rgb_array', 'mujoco_rendering': False}>}>
 ---
 [2025-01-20 23:37:25] [INFO] Starting trial 1/100...
 [2025-01-20 23:37:25] [INFO] ### Getting overall strategy reasoning from the LLM...
