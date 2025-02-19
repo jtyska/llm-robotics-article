@@ -1,24 +1,21 @@
 import random
 
 def get_action(cart_position, cart_velocity, pole_angle, pole_angular_velocity):
-    if pole_angle > 0.1:
+    if cart_position > 20:
         return 1
-    elif pole_angle < -0.1:
+    elif cart_position < -20:
         return 2
-    elif pole_angular_velocity > 0.5:
+    elif pole_angle > 5 and pole_angular_velocity > 0:
         return 1
-    elif pole_angular_velocity < -0.5:
+    elif pole_angle < -5 and pole_angular_velocity < 0:
         return 2
-    elif cart_position > 1.0:
+    elif cart_velocity > 0 and pole_angle > 0:
         return 1
-    elif cart_position < -1.0:
-        return 2
-    elif cart_velocity > 0.5:
-        return 1
-    elif cart_velocity < -0.5:
+    elif cart_velocity < 0 and pole_angle < 0:
         return 2
     elif cart_position > 0:
         return 1
-    else:
+    elif cart_position < 0:
         return 2
-    return random.randint(1, 2)
+    else:
+        return random.randint(1, 2)

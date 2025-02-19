@@ -1,10 +1,8 @@
-IF theta > 0.1 THEN action = 1  
-ELSE IF theta < -0.1 THEN action = 2  
-ELSE IF omega > 0.5 THEN action = 1  
-ELSE IF omega < -0.5 THEN action = 2  
-ELSE IF x > 1.0 THEN action = 1  
-ELSE IF x < -1.0 THEN action = 2  
-ELSE IF v > 0.5 THEN action = 1  
-ELSE IF v < -0.5 THEN action = 2  
-ELSE IF x > 0 THEN action = 1  
-ELSE action = 2
+1. **IF** (Cart position > 20) **THEN** move left(1).
+2. **IF** (Cart position < -20) **THEN** move right(2).
+3. **IF** (Pole angle > 5 AND Pole angular velocity > 0) **THEN** move left(1).
+4. **IF** (Pole angle < -5 AND Pole angular velocity < 0) **THEN** move right(2).
+5. **IF** (Cart velocity > 0 AND Pole angle > 0) **THEN** move left(1).
+6. **IF** (Cart velocity < 0 AND Pole angle < 0) **THEN** move right(2).
+7. **IF** (Cart position > 0) **THEN** move left(1).
+8. **IF** (Cart position < 0) **THEN** move right(2).

@@ -70,7 +70,7 @@
       <label for="versionSelect">Select Experiment Version: </label>
       <select id="versionSelect">
         <option value="action_space_modified">Action Space Modified</option>
-        <option value="observation_action_space_modified">Observation Action Space Modified</option>
+        <option value="observation_action_spaces_modified">Observation Action Space Modified</option>
       </select>
     </span>
     &nbsp;&nbsp;
@@ -170,7 +170,7 @@
         // Cart Pole special case.
         const version = document.getElementById('versionSelect').value;
         const model = document.getElementById('modelSelect').value;
-        if (version === "action_space_modified" && model === "deepseek" && seed === "worst") {
+        if (seed === "worst" && ((version === "action_space_modified" && model === "deepseek") || (version === "observation_action_spaces_modified" && (model==="deepseek" || model==="llama")))) {
           // Show extra Cart Pole toggle button.
           document.getElementById('toggleCartPoleFinalBtn').style.display = "inline-block";
           finalVideoPath = (cartPoleFinalMode === "success") ?

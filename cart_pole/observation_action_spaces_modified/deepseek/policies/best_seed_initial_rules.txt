@@ -1,10 +1,6 @@
-IF theta > 0.1 THEN action = 1  
-ELSE IF theta < -0.1 THEN action = 2  
-ELSE IF omega > 0.5 THEN action = 1  
-ELSE IF omega < -0.5 THEN action = 2  
-ELSE IF x > 1.0 THEN action = 1  
-ELSE IF x < -1.0 THEN action = 2  
-ELSE IF v > 0.5 THEN action = 1  
-ELSE IF v < -0.5 THEN action = 2  
-ELSE IF x > 0 THEN action = 1  
-ELSE action = 2
+IF pole_angle <= -20 THEN action = 2  
+ELSE IF pole_angle >= 20 THEN action =1  
+ELSE IF cart_position <= -15 THEN action=2  
+ELSE IF cart_position>=15 THEN action=1  
+ELSE IF (pole_angular_velocity>5 AND positive) THEN action=1 ELSE (pole_angular_velocity>5 AND negative) THEN action=2  
+ELSE check CartVelocity's direction to slow down, default action accordingly.

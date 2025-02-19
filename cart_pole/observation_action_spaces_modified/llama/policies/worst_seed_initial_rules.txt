@@ -1,6 +1,18 @@
-IF x > 2 THEN action = 1  
-ELSE IF x < -2 THEN action = 2  
-ELSE IF theta > 0 AND omega > 0 THEN action = 1  
-ELSE IF theta < 0 AND omega < 0 THEN action = 2  
-ELSE IF theta > 0 THEN action = 1  
-ELSE action = 2
+1. **If** pole angle > 5 and pole angular velocity > 0, **then** move left (1).
+   - **If** pole angle < -5 and pole angular velocity < 0, **then** move left (1).
+   - **If** pole angle > 5 and pole angular velocity < 0, **then** move right (2).
+   - **If** pole angle < -5 and pole angular velocity > 0, **then** move right (2).
+
+2. **Else if** cart position > 25, **then** move left (1).
+   - **Else if** cart position < -25, **then** move right (2).
+   - **Else if** cart position > 5, **then** move left (1).
+   - **Else if** cart position < -5, **then** move right (2).
+
+3. **Else** 
+   - **If** pole angle > 0 and cart velocity > 2 or pole angle > 0, **then** move left (1).
+   - **If** pole angle < 0 and cart velocity < -2 or pole angle < 0, **then** move right (2).
+   - **If** pole angle > 0 and cart velocity < 2, **then** move right (2).
+   - **If** pole angle < 0 and cart velocity > -2, **then** move left (1).
+
+4. **If** pole angle > 0, **then** move right (2).
+   - **If** pole angle < 0, **then** move left (1).

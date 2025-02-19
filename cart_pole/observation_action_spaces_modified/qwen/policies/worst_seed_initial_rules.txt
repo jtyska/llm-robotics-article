@@ -1,6 +1,10 @@
-IF x > 2 THEN action = 1  
-ELSE IF x < -2 THEN action = 2  
-ELSE IF theta > 0 AND omega > 0 THEN action = 1  
-ELSE IF theta < 0 AND omega < 0 THEN action = 2  
-ELSE IF theta > 0 THEN action = 1  
-ELSE action = 2
+1. **IF** Pole angle < 0 (tilting left) **AND** |Pole angle| > 5 **THEN** Action = move right (2)
+2. **ELSE IF** Pole angle > 0 (tilting right) **AND** |Pole angle| > 5 **THEN** Action = move left (1)
+3. **ELSE IF** Cart position < 0 (moving left) **AND** |Cart position| > 10 **THEN** Action = move right (2)
+4. **ELSE IF** Cart position > 0 (moving right) **AND** |Cart position| > 10 **THEN** Action = move left (1)
+5. **ELSE IF** Pole angle < 0 (tilting left) **AND** |Pole angle| <= 5 **THEN** Action = move right (2)
+6. **ELSE IF** Pole angle > 0 (tilting right) **AND** |Pole angle| <= 5 **THEN** Action = move left (1)
+7. **ELSE** Action = move based on cart position to center the cart
+   - **IF** Cart position < 0 (moving left) **THEN** Action = move right (2)
+   - **ELSE IF** Cart position > 0 (moving right) **THEN** Action = move left (1)
+   - **ELSE** Action = move right (2)

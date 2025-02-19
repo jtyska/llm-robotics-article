@@ -1,10 +1,27 @@
-IF theta > 0.1 THEN action = 1  
-ELSE IF theta < -0.1 THEN action = 2  
-ELSE IF omega > 0.5 THEN action = 1  
-ELSE IF omega < -0.5 THEN action = 2  
-ELSE IF x > 1.0 THEN action = 1  
-ELSE IF x < -1.0 THEN action = 2  
-ELSE IF v > 0.5 THEN action = 1  
-ELSE IF v < -0.5 THEN action = 2  
-ELSE IF x > 0 THEN action = 1  
-ELSE action = 2
+```python
+if Pole_angle > 0:
+    action = 1  # Move cart to the left to counteract right tilt
+else:
+    action = 2  # Move cart to the right to counteract left tilt
+
+# Adjust based on angular velocity
+if abs(Pole_angular_velocity) > 10:
+    if Pole_angle > 0 and Pole_angular_velocity > 5:
+        action = 1  # More aggressive move to the left
+    elif Pole_angle < 0 and Pole_angular_velocity < -5:
+        action = 2  # More aggressive move to the right
+
+# Adjust based on cart position
+if abs(Cart_position) > 10:
+    if Cart_position > 10:
+        action = 1  # Move cart to the left to stay within bounds
+    elif Cart_position < -10:
+        action = 2  # Move cart to the right to stay within bounds
+
+# Adjust based on cart velocity
+if abs(Cart_velocity) > 5:
+    if Cart_velocity > 5:
+        action = 1  # Slow down by moving left
+    elif Cart_velocity < -5:
+        action = 2  # Slow down by moving right
+```

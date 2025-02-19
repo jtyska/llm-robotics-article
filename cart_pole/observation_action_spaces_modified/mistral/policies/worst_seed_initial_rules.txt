@@ -1,6 +1,10 @@
-IF x > 2 THEN action = 1  
-ELSE IF x < -2 THEN action = 2  
-ELSE IF theta > 0 AND omega > 0 THEN action = 1  
-ELSE IF theta < 0 AND omega < 0 THEN action = 2  
-ELSE IF theta > 0 THEN action = 1  
-ELSE action = 2
+```plaintext
+IF (Pole angle < -5) THEN move right(2);
+ELSE IF (Pole angle > 5) THEN move left(1);
+ELSE IF (Cart position < -5 AND Pole angle <= 0) THEN move right(2);
+ELSE IF (Cart position > 5 AND Pole angle >= 0) THEN move left(1);
+ELSE IF ((Pole angle < -2 AND Cart velocity > 2) OR (Cart position < -5)) THEN move right(2);
+ELSE IF ((Pole angle > 2 AND Cart velocity < -2) OR (Cart position > 5)) THEN move left(1);
+ELSE IF (Pole angular velocity < 0) THEN move right(2);
+ELSE IF (Pole angular velocity > 0) THEN move left(1);
+ELSE move left(1);

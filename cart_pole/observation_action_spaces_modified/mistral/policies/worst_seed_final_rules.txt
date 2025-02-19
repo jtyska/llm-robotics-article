@@ -1,7 +1,16 @@
-IF cart position (x) > 2 THEN apply force right (2)
-ELSE IF cart position (x) < -2 THEN apply force left (1)
-ELSE IF pole angle (theta) > 0 AND pole angular velocity (omega) > 0 THEN apply force right (2)
-ELSE IF pole angle (theta) < 0 AND pole angular velocity (omega) < 0 THEN apply force left (1)
-ELSE IF cart velocity (v) > 10 THEN apply force left (1)
-ELSE IF cart velocity (v) < -10 THEN apply force right (2)
-ELSE apply force right (2)
+```plaintext
+IF cart position is between -5 and 5 AND pole angle is between -10 and 10:
+    IF cart velocity > 2 OR < -2:
+        THEN apply force in opposite direction to slow down the cart (if cart velocity > 0, move left; if cart velocity < 0, move right)
+    ELSE IF pole angular velocity > 5 OR < -5:
+        THEN apply moderate force in opposite direction of the tilt (if pole angular velocity > 0, move left; if pole angular velocity < 0, move right)
+ELSE IF cart position is outside [-5, 5] or pole angle is outside [-10, 10]:
+    IF pole angle > 2 AND pole angular velocity > 3:
+        THEN move right aggressively (apply maximum force to the right)
+    ELSE IF pole angle < -2 AND pole angular velocity < -3:
+        THEN move left aggressively (apply maximum force to the left)
+    ELSE IF pole angle > 6 OR pole angle < -6:
+        THEN apply maximum corrective action in opposite direction of tilt (if pole angle > 0, move right; if pole angle < 0, move left)
+ELSE:
+    Apply moderate force to maintain stability (alternate between moving left and right based on current velocities)
+```
