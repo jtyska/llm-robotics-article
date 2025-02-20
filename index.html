@@ -38,7 +38,6 @@
       height: 300px;
       border: none;
     }
-<<<<<<< HEAD
     button {
       margin-left: 10px;
       padding: 5px 10px;
@@ -48,12 +47,6 @@
 </head>
 <body>
   <h1>LLM Robotics Article Data Explorer</h1>
-=======
-  </style>
-</head>
-<body>
-  <h1>LLM Robotics Article Viewer</h1>
->>>>>>> 521e2f8 (sending index.html)
   
   <div class="menu">
     <label for="envSelect">Select Environment: </label>
@@ -71,7 +64,6 @@
       <option value="best">Best</option>
       <option value="worst">Worst</option>
     </select>
-<<<<<<< HEAD
     &nbsp;&nbsp;
     <!-- Extra menus for cart_pole only -->
     <span id="versionContainer" style="display:none;">
@@ -100,14 +92,6 @@
     <!-- Initial Strategy Column -->
     <div class="video-container">
       <h2>Initial Strategy</h2>
-=======
-  </div>
-  
-  <div class="container">
-    <!-- Initial Video Column -->
-    <div class="video-container">
-      <h2>Initial Video</h2>
->>>>>>> 521e2f8 (sending index.html)
       <video id="initialVideo" controls>
         Your browser does not support the video tag.
       </video>
@@ -121,7 +105,6 @@
       </details>
     </div>
     
-<<<<<<< HEAD
     <!-- Final (Best) Strategy Column -->
     <div class="video-container">
       <h2>
@@ -131,11 +114,6 @@
         <!-- Extra toggle for Cart Pole special case -->
         <button id="toggleCartPoleFinalBtn" style="display:none;">Toggle to Fail</button>
       </h2>
-=======
-    <!-- Final Video Column -->
-    <div class="video-container">
-      <h2>Final Video</h2>
->>>>>>> 521e2f8 (sending index.html)
       <video id="finalVideo" controls>
         Your browser does not support the video tag.
       </video>
@@ -151,7 +129,6 @@
   </div>
   
   <script>
-<<<<<<< HEAD
     // Global toggle variables.
     let finalVideoMode = "original";    // For pendulum.
     let cartPoleFinalMode = "success";    // For Cart Pole special case.
@@ -287,39 +264,6 @@
     });
     
     // Initialize the page.
-=======
-    // Updates video sources and policy file links based on the selected environment and seed.
-    function updateContent() {
-      alert('HI')
-      var env = document.getElementById('envSelect').value;
-      var seed = document.getElementById('seedSelect').value;
-      
-      // Construct file paths.
-      // Videos: the filenames follow the pattern "seed_seed_best_initial.mp4" and "seed_seed_best_final_t14.mp4"
-      var initialVideoPath = env + "/videos/" + seed + "_seed_best_initial.mp4";
-      var finalVideoPath = env + "/videos/" + seed + "_seed_best_final_t14.mp4";
-      
-      // Policies: the filenames are "seed_seed_final_code.py" and "seed_seed_final_rules.py"
-      var codePath = env + "/policies/" + seed + "_seed_final_code.py";
-      var rulesPath = env + "/policies/" + seed + "_seed_final_rules.py";
-      
-      // Update video elements.
-      document.getElementById('initialVideo').src = initialVideoPath;
-      document.getElementById('finalVideo').src = finalVideoPath;
-      
-      // Update iframes in the details elements.
-      document.getElementById('initialCodeFrame').src = codePath;
-      document.getElementById('finalCodeFrame').src = codePath;
-      document.getElementById('initialRulesFrame').src = rulesPath;
-      document.getElementById('finalRulesFrame').src = rulesPath;
-    }
-    
-    // Listen to changes in the drop-down menus.
-    document.getElementById('envSelect').addEventListener('change', updateContent);
-    document.getElementById('seedSelect').addEventListener('change', updateContent);
-    
-    // Initialize the page content.
->>>>>>> 521e2f8 (sending index.html)
     updateContent();
   </script>
 </body>
