@@ -1,0 +1,28 @@
+```plaintext
+IF (pole_angle > 0.015)
+THEN action = -2.2 * pole_angle
+ELSE IF (pole_angle < -0.015)
+THEN action = 2.2 * pole_angle
+ELSE
+THEN action = 0
+
+IF (cart_position > 3.0)
+THEN action += -1.3
+ELSE IF (cart_position < -3.0)
+THEN action += 1.3
+
+IF (cart_velocity > 1.5)
+THEN action += -0.5 * cart_velocity
+ELSE IF (cart_velocity < -1.5)
+THEN action += 0.5 * cart_velocity
+
+IF (pole_angular_velocity > 0.4)
+THEN action += -1.5 * pole_angle
+ELSE IF (pole_angular_velocity < -0.4)
+THEN action += 1.5 * pole_angle
+
+action = max(-3.0, min(3.0, action))
+
+IF (abs(action) > 2.5)
+THEN action *= 0.85
+```

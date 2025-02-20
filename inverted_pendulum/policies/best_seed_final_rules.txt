@@ -1,0 +1,14 @@
+```python
+if abs(pole_angle) > 0.15 or abs(angular_velocity) > 0.25:
+    angle_factor = (abs(pole_angle) - 0.15) / (0.15 * 0.25)
+    velocity_factor = (abs(angular_velocity) - 0.25) / (0.25 * 0.25)
+    factor = min(angle_factor + velocity_factor, 2.5)
+else:
+    factor = 0
+
+bias = 0.15 * np.sign(pole_angle)
+damping = -0.3 * angular_velocity
+
+action = 3.0 * pole_angle + 1.3 * angular_velocity + 0.2 * cart_position + 3.5 * pole_angle * factor + bias + damping
+action = max(-3.0, min(3.0, action))
+```
