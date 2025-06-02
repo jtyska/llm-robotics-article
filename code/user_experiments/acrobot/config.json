@@ -1,0 +1,25 @@
+{
+    "experiment": {
+        "prompt": [
+            "CreateStrategyCompareUpdate"
+        ],
+        "steps_memory": 20,
+        "num_trials": 50,
+        "estimate_reward_trials":10
+    },
+    
+    "llm": {
+        "llm_type": "ollama",
+        "server_address":"ADDRESS_FOR_THE_LLM_SERVER",
+        "llm_id": [
+            "qwen2.5:72b"
+        ],
+        "seed": [0,1,2,3,4,6,7,8,9],
+        "temperature":[0.0,1.6]
+    },
+    "environment": {
+        "environment_name": "gym",
+        "task": "Acrobot-v1", 
+        "render_mode": "rgb_array"
+    }
+}
