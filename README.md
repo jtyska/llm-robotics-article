@@ -12,7 +12,7 @@ in-context and iterative learning** by Jônata Tyska Carvalho and Stefano Nolfi.
 
 To replicate the experiments:
 1. Navigate to the `code/` directory.
-2. Install the dependencies with setup.py and run the experiments with run_experiment.py
+2. Install the dependencies with setup_requirements.py and run the experiments with run_experiment.py
 3. Ensure any required LLM_SERVER_ADDRESS, API keys or model credentials (e.g., Hugging Face) are filled in the proper files.
 
 ## License
