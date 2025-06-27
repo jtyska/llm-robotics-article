@@ -3,6 +3,7 @@ import random
 import numpy as np
 import types
 import traceback
+import re
 
 class CreateStrategyCompareUpdateDiscretized(Experiment):
     def __init__(self,   name, json_config_file="",base_dir="",results_path=""):
@@ -56,6 +57,11 @@ Failure Conditions:
         
         #self.set_instruction("""You are an embodied agent and you will have to perform a given task.
         #""")
+        
+    def remove_thinking(self,input_string):
+        # Regular expression to match <think>...</think> and remove it
+        pattern = r"<think>.*?</think>"
+        return re.sub(pattern, "", input_string, flags=re.DOTALL)
 
     def create_overall_strategy_reasoning(self,debug=False):
         self.logger.info("### Getting overall strategy reasoning from the LLM...")
@@ -80,7 +86,7 @@ Failure Conditions:
             """
         self.logger.info(rules_prompt)
         self.previous_overall_strategy_rules = self.overall_strategy_rules
-        self.overall_strategy_rules = self.get_llm().send_single_prompt(rules_prompt)
+        self.overall_strategy_rules = self.remove_thinking(self.get_llm().send_single_prompt(rules_prompt))
         self.logger.info(f"############## LLM Overall strategy rules\n{self.overall_strategy_rules}")
     
     def get_code_from_rules(self,trial_failed=False,add_mid="",add_end=""):
@@ -103,7 +109,7 @@ Failure Conditions:
         else:
             self.previous_overall_strategy_code = self.overall_strategy_code
         self.logger.info(prompt)
-        self.overall_strategy_code = self.get_llm().send_single_prompt(prompt).replace("```python","").replace("```","")
+        self.overall_strategy_code = self.get_llm().send_single_prompt(prompt,coder=True).replace("```python","").replace("```","")
         self.logger.info(f"############## LLM Overall strategy code \n{self.overall_strategy_code}")
          
     def update_overall_strategy_reasoning(self,failed_reasoning=False,trial_number=1,add_end=""):
