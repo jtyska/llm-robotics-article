@@ -1,0 +1,17 @@
+**Rule 1**  
+IF |θ| > 0.15 rad THEN F = ‑2.5 · θ ‑ 1.0 · θ̇  
+
+**Rule 2**  
+ELSE IF |θ| ≤ 0.15 rad AND |θ̇| > 0.05 rad/s THEN F = ‑1.0 · θ̇  
+
+**Rule 3**  
+ELSE IF |θ| ≤ 0.15 rad AND |θ̇| ≤ 0.05 rad/s AND |x| > 0.5 m THEN F = ‑1.5 · x ‑ 0.8 · ẋ  
+
+**Rule 4**  
+ELSE IF |θ| ≤ 0.15 rad AND |θ̇| ≤ 0.05 rad/s AND |x| ≤ 0.5 m AND |ẋ| > 0.2 m/s THEN F = ‑0.8 · ẋ  
+
+**Rule 5**  
+ELSE F = 0  
+
+**Clipping**  
+After computing F, clip to the allowed interval: F ← max(‑3.0, min(3.0, F)).

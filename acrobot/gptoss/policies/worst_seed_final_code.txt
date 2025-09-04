@@ -1,0 +1,54 @@
+import random
+
+def get_action(cos_theta1, sin_theta1, cos_theta2, sin_theta2, ang_vel_theta1, ang_vel_theta2):
+    c1 = cos_theta1
+    s1 = sin_theta1
+    c2 = cos_theta2
+    s2 = sin_theta2
+    v1 = ang_vel_theta1
+    v2 = ang_vel_theta2
+
+    h = -c1 - (c1 * c2 - s1 * s2)
+
+    # Goal / near‑goal
+    if h > 1.0:
+        return 1
+    elif h > 0.92 and abs(v2) < 0.4:
+        return 1
+
+    # Priming phase (first link still below vertical)
+    if c1 > 0.0:
+        if v2 > 0.25:
+            return 2
+        elif v2 < -0.25:
+            return 0
+        elif s2 > 0.0:
+            return 2
+        elif s2 < 0.0:
+            return 0
+        else:
+            return 1
+
+    # Swing‑up / balancing phase (first link already above vertical)
+    else:  # c1 <= 0.0
+        if abs(v2) > 0.35:
+            if v2 * s2 < 0:
+                if v2 > 0:
+                    return 0
+                else:
+                    return 2
+            elif v2 * s2 > 0:
+                if v2 > 0:
+                    return 2
+                else:
+                    return 0
+        else:
+            if s2 > 0.15:
+                return 2
+            elif s2 < -0.15:
+                return 0
+            else:
+                return 1
+
+    # Default random action (should not be reached)
+    return random.randint(0, 2)

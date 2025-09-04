@@ -1,0 +1,16 @@
+def get_action(cos_theta1, sin_theta1, cos_theta2, sin_theta2, ang_vel_theta1, ang_vel_theta2):
+    import random
+    s1 = sin_theta1
+    s2 = sin_theta2
+    w2 = ang_vel_theta2
+    if s1 < -0.5:
+        return 2
+    elif s1 > 0.5:
+        return 1
+    elif s2 < 0.0 and w2 < 0.0:
+        return 2
+    elif s2 > 0.0 and w2 > 0.0:
+        return 0
+    else:
+        return 1
+    return random.randint(0, 2)

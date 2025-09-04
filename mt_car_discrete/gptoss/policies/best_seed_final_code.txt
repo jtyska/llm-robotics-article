@@ -1,0 +1,17 @@
+import random
+
+def get_action(car_position, car_velocity):
+    if car_position >= 0.5:
+        return 1
+    elif car_position >= 0.4 and car_velocity > 0:
+        return 1
+    elif car_velocity > 0:
+        return 2
+    elif car_position <= -0.55 and car_velocity < 0:
+        return 0
+    elif car_position <= -0.55 and car_velocity >= 0:
+        return 2
+    elif car_velocity < 0:
+        return 0
+    else:
+        return random.randint(0, 2)

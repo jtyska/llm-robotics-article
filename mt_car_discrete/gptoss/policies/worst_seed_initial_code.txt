@@ -1,0 +1,20 @@
+import random
+
+def get_action(car_position, car_velocity):
+    p = car_position
+    v = car_velocity
+    if p >= 0.5:
+        return 1
+    elif p > 0.45 and v > 0.04:
+        return 0
+    elif p > 0.30 and v > 0.02:
+        return 1
+    elif v < -0.01:
+        return 2
+    elif p < -0.20:
+        return 2
+    elif v < 0.02:
+        return 2
+    else:
+        return 1
+    return random.randint(0, 2)

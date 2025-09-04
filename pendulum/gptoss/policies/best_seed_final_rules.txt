@@ -1,0 +1,16 @@
+IF  abs(atan2(y, x)) > 0.30 THEN  
+ θ ← atan2(y, x)  
+ ω ← theta_dot  
+ E ← (1 - cos(θ)) + 0.5 * ω²                     // current mechanical energy  
+ ΔE ← 1.0 - E                                   // energy error (target E* = 1)  
+ kE ← 5.0 * (1.0 - min(1.0, abs(θ)/π))           // adaptive gain (0 < kE ≤ 5)  
+ τ_raw ← kE * ΔE * sign(ω * cos(θ)) + 0.8 * (-θ)   // energy‑shaping + small angle bias  
+
+ELSE  
+ θ ← atan2(y, x)  
+ ω ← theta_dot  
+ τ_raw ← ‑8.0 * θ ‑ 2.5 * ω                     // PD controller near upright  
+
+END IF  
+
+torque ← max(‑2.0, min(2.0, τ_raw))   // clip to the allowed range [-2.0, 2.0]

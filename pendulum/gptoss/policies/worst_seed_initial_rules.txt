@@ -1,0 +1,4 @@
+**Rules (use only the current observation (x, y, θ̇) and clip the result to [‑2.0, 2.0])**
+
+1. Compute the angle  
+   `θ = atan2(y, x)`

@@ -1,0 +1,7 @@
+**Rule 1 – Safety check**  
+IF `x`, `ẋ`, `θ`, or `θ̇` is not finite  
+THEN `force ← 0`  
+
+**Rule 2 – Compute normalized tilt**  
+ELSE  
+ `tilt_raw ← (|θ| − 0.05) / (0.18 − 0.05)`  

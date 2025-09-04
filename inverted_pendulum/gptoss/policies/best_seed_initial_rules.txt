@@ -1,0 +1,21 @@
+IF |θ| > 0.02 OR |θ̇| > 0.02 THEN
+    A = 2.0 * θ + 1.0 * θ̇
+ELSE
+    A = 0.0
+END IF
+
+IF |x| > 0.05 OR |ẋ| > 0.05 THEN
+    B = 0.5 * x + 0.5 * ẋ
+ELSE
+    B = 0.0
+END IF
+
+F_raw = A - B
+
+IF F_raw > 3.0 THEN
+    action = 3.0
+ELSE IF F_raw < -3.0 THEN
+    action = -3.0
+ELSE
+    action = F_raw
+END IF

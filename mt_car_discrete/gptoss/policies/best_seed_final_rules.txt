@@ -1,0 +1,7 @@
+IF position >= 0.5                         → action = 1  
+ELIF position >= 0.4 AND velocity > 0      → action = 1  
+ELIF velocity > 0                          → action = 2  
+ELIF position <= -0.55 AND velocity < 0    → action = 0  
+ELIF position <= -0.55 AND velocity >= 0   → action = 2  
+ELIF velocity < 0                          → action = 0  
+ELSE                                        → action = 2

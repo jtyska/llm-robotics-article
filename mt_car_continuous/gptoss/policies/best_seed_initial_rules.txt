@@ -1,0 +1,8 @@
+IF p ≥ 0.45 THEN a = 0.0  
+ELSE IF v > 0.02 AND p > 0.30 THEN a = clip(0.2 * (0.45 - p), -1, 1)  
+ELSE IF v > 0.02 AND p ≤ 0.30 THEN a = 0.6  
+ELSE IF v < -0.02 AND p < -0.05 THEN a = -0.6  
+ELSE IF v < -0.02 AND p ≥ -0.05 THEN a = -0.3  
+ELSE IF abs(v) ≤ 0.02 AND p < -0.4 THEN a = -0.8  
+ELSE IF abs(v) ≤ 0.02 AND p > -0.4 AND p < 0.0 THEN a = 0.8  
+ELSE a = 0.0   (default)

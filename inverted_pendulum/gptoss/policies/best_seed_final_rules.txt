@@ -1,0 +1,47 @@
+IF ( !isFinite(x) OR !isFinite(x_dot) OR !isFinite(theta) OR !isFinite(theta_dot) )  
+THEN force = 0  
+
+ELSE IF ( abs(theta) ≥ 0.20 )  
+THEN force = -3.0 * sign(theta)  
+
+ELSE  
+    /* compute components */  
+    pole_pd      = 5.8 * theta + 3.5 * theta_dot;  
+    damp         = 0.5 + 0.9 * (abs(theta) / 0.20);  
+    pole_damp    = -damp * theta_dot;  
+
+    IF ( (abs(theta) > 0.12 OR abs(theta_dot) > 0.15) AND (theta * theta_dot > 0) )  
+    THEN  
+        boost_raw = 0.8 + 2.0 * (abs(theta)‑0.12) / (0.20‑0.12);  
+        boost_raw = min(boost_raw, 3.0);  
+        boost = -boost_raw * sign(theta);  
+    ELSE boost = 0;  
+
+    center_weak = clamp(0.45 * x + 0.30 * x_dot, -2.0, 2.0);  
+
+    IF ( abs(x) > 0.5 )  
+    THEN  
+        edge_factor  = clamp((abs(x)‑0.5) / (2.4‑0.5), 0, 1);  
+        strong_gain  = 0.6 + 0.9 * edge_factor;  
+        strong_vel   = 0.35 + 0.35 * edge_factor;  
+        center_strong = clamp(strong_gain * x + strong_vel * x_dot, -3.0, 3.0);  
+    ELSE  
+        edge_factor  = 0;  
+        center_strong = 0;  
+
+    repulsion = -0.9 * edge_factor * x;  
+
+    IF ( 0.003 < abs(theta) < 0.015 AND abs(theta_dot) < 0.01 )  
+    THEN bias = 0.012 * sign(theta);  
+    ELSE bias = 0;  
+
+    vel_feed = -0.07 * x_dot;  
+
+    /* low‑pass integral of theta (stateful) */  
+    theta_int = 0.99 * theta_int + 0.01 * theta;  
+    theta_int_corr = -0.02 * theta_int;  
+
+    raw = pole_pd + pole_damp + boost + center_weak + center_strong + repulsion + bias + vel_feed + theta_int_corr;  
+    raw = clamp(raw, -5.5, 5.5);  
+
+    force = clamp(3.0 * tanh(raw / 3.0), -3.0, 3.0); 

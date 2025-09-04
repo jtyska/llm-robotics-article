@@ -1,0 +1,24 @@
+import random
+
+def get_action(car_position, car_velocity):
+    if car_position >= 0.45:
+        action = 0.0
+    elif car_position <= -0.20:
+        if car_velocity < 0:
+            if car_position < -0.55:
+                action = -0.30
+            else:
+                action = -0.45
+        else:
+            action = 0.60
+    else:
+        dist = 0.45 - car_position
+        base = 0.60 * (dist / (0.45 + 0.20))
+        vel_factor = max(0.0, 1.0 - 0.8 * car_velocity)
+        if dist <= 0.10:
+            base = base * (dist / 0.10) ** 2
+        action = base * vel_factor
+    if 'action' in locals():
+        action = max(-1.0, min(1.0, action))
+        return action
+    return random.uniform(-1, 1)

@@ -1,0 +1,22 @@
+IF position >= 0.45 THEN
+    action = 0.0
+ELSE IF position <= -0.20 THEN
+    IF velocity < 0 THEN
+        IF position < -0.55 THEN
+            action = -0.30
+        ELSE
+            action = -0.45
+        ENDIF
+    ELSE
+        action = 0.60
+    ENDIF
+ELSE
+    dist = 0.45 - position                     // distance to goal (>0)
+    base = 0.60 * (dist / (0.45 + 0.20))        // linear decay with distance
+    vel_factor = max(0.0, 1.0 - 0.8 * velocity) // damp by forward speed
+    IF dist <= 0.10 THEN
+        base = base * (dist / 0.10) ^ 2        // quadratic ramp‑down near goal
+    ENDIF
+    action = base * vel_factor
+ENDIF
+action = max(-1.0, min(1.0, action))            // clip to legal range

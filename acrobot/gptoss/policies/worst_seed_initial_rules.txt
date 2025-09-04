@@ -1,0 +1,7 @@
+- IF sin(θ₁+θ₂) > 0 AND vel2 > 0 THEN action = 2  
+- IF sin(θ₁+θ₂) < 0 AND vel2 < 0 THEN action = 0  
+- IF sin(θ₁+θ₂) > 0 AND vel2 < 0 THEN action = 1  
+- IF sin(θ₁+θ₂) < 0 AND vel2 > 0 THEN action = 1  
+- IF |sin(θ₁+θ₂)| ≤ 0.1 AND |vel2| ≤ 0.2 AND cos(θ₁+θ₂) < 0 THEN action = 2  
+- IF |sin(θ₁+θ₂)| ≤ 0.1 AND |vel2| ≤ 0.2 AND cos(θ₁+θ₂) ≥ 0 THEN action = 0  
+- OTHERWISE action = 1

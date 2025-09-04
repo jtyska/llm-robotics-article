@@ -1,0 +1,23 @@
+def get_action(cos_theta1, sin_theta1, cos_theta2, sin_theta2, ang_vel_theta1, ang_vel_theta2):
+    import math, random
+    theta1 = math.atan2(sin_theta1, cos_theta1)
+    theta2 = math.atan2(sin_theta2, cos_theta2)
+    h = -cos_theta1 - math.cos(theta1 + theta2)
+    if abs(ang_vel_theta2) > 20:
+        return 1
+    elif h <= 1.0 and ang_vel_theta2 > 0.05:
+        return 2
+    elif h <= 1.0 and ang_vel_theta2 < -0.05:
+        return 0
+    elif h <= 1.0 and abs(ang_vel_theta2) <= 0.05 and cos_theta2 < 0:
+        return 2
+    elif h <= 1.0 and abs(ang_vel_theta2) <= 0.05 and cos_theta2 >= 0:
+        return 0
+    elif h > 1.0 and ang_vel_theta2 > 0.05:
+        return 0
+    elif h > 1.0 and ang_vel_theta2 < -0.05:
+        return 2
+    elif h > 1.0 and abs(ang_vel_theta2) <= 0.05:
+        return 1
+    else:
+        return random.randint(0, 2)

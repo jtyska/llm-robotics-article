@@ -1,0 +1,21 @@
+def get_action(cos_theta, sin_theta, angular_velocity):
+    import math, random
+    theta = math.atan2(sin_theta, cos_theta)
+    if abs(theta) > 0.30:
+        omega = angular_velocity
+        E = (1 - math.cos(theta)) + 0.5 * omega * omega
+        dE = 1.0 - E
+        kE = 5.0 * (1.0 - min(1.0, abs(theta) / math.pi))
+        prod = omega * math.cos(theta)
+        if prod > 0:
+            s = 1
+        elif prod < 0:
+            s = -1
+        else:
+            s = 0
+        tau_raw = kE * dE * s + 0.8 * (-theta)
+    else:
+        omega = angular_velocity
+        tau_raw = -8.0 * theta - 2.5 * omega
+    torque = max(-2.0, min(2.0, tau_raw))
+    return torque

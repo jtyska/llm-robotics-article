@@ -1,0 +1,5 @@
+IF    s1 < -0.5                     THEN action = 2
+ELSE IF s1 >  0.5                  THEN action = 1
+ELSE IF s2 <  0.0  AND  w2 < 0.0  THEN action = 2
+ELSE IF s2 >  0.0  AND  w2 > 0.0  THEN action = 0
+ELSE                                 action = 1

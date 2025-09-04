@@ -1,0 +1,70 @@
+import math, random
+
+def get_action(cart_position, pole_angle, cart_velocity, pole_angular_velocity):
+    # helpers
+    def is_finite(v):
+        return math.isfinite(v)
+    def sign(v):
+        return math.copysign(1.0, v) if v != 0 else 0.0
+    def clamp(v, lo, hi):
+        return max(lo, min(hi, v))
+    # initialize stateful integral
+    if not hasattr(get_action, "theta_int"):
+        get_action.theta_int = 0.0
+
+    x = cart_position
+    theta = pole_angle
+    x_dot = cart_velocity
+    theta_dot = pole_angular_velocity
+
+    # rule 1: non‑finite check
+    if not (is_finite(x) and is_finite(x_dot) and is_finite(theta) and is_finite(theta_dot)):
+        return 0.0
+
+    # rule 2: large angle failure handling
+    if abs(theta) >= 0.20:
+        return -3.0 * sign(theta)
+
+    # ----- main controller -----
+    pole_pd = 5.8 * theta + 3.5 * theta_dot
+    damp = 0.5 + 0.9 * (abs(theta) / 0.20)
+    pole_damp = -damp * theta_dot
+
+    # boost logic
+    if (abs(theta) > 0.12 or abs(theta_dot) > 0.15) and (theta * theta_dot > 0):
+        boost_raw = 0.8 + 2.0 * (abs(theta) - 0.12) / (0.20 - 0.12)
+        boost_raw = min(boost_raw, 3.0)
+        boost = -boost_raw * sign(theta)
+    else:
+        boost = 0.0
+
+    center_weak = clamp(0.45 * x + 0.30 * x_dot, -2.0, 2.0)
+
+    if abs(x) > 0.5:
+        edge_factor = clamp((abs(x) - 0.5) / (2.4 - 0.5), 0.0, 1.0)
+        strong_gain = 0.6 + 0.9 * edge_factor
+        strong_vel = 0.35 + 0.35 * edge_factor
+        center_strong = clamp(strong_gain * x + strong_vel * x_dot, -3.0, 3.0)
+    else:
+        edge_factor = 0.0
+        center_strong = 0.0
+
+    repulsion = -0.9 * edge_factor * x
+
+    if 0.003 < abs(theta) < 0.015 and abs(theta_dot) < 0.01:
+        bias = 0.012 * sign(theta)
+    else:
+        bias = 0.0
+
+    vel_feed = -0.07 * x_dot
+
+    # low‑pass integral of theta (stateful)
+    get_action.theta_int = 0.99 * get_action.theta_int + 0.01 * theta
+    theta_int_corr = -0.02 * get_action.theta_int
+
+    raw = (pole_pd + pole_damp + boost + center_weak + center_strong +
+           repulsion + bias + vel_feed + theta_int_corr)
+    raw = clamp(raw, -5.5, 5.5)
+
+    force = clamp(3.0 * math.tanh(raw / 3.0), -3.0, 3.0)
+    return force if force is not None else random.uniform(-3.0, 3.0)

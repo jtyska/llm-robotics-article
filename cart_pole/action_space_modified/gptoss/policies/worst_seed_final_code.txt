@@ -1,0 +1,19 @@
+import random
+
+def get_action(cart_position, cart_velocity, pole_angle, pole_angular_velocity):
+    action = None
+    expr = pole_angle + 0.9 * pole_angular_velocity
+    if abs(expr) > 0.012:
+        if expr > 0:
+            action = 2
+        else:
+            action = 1
+    elif cart_position > 2.0:
+        action = 1
+    elif cart_position < -2.0:
+        action = 2
+    else:
+        action = 2
+    if action is None:
+        action = random.randint(1, 2)
+    return action

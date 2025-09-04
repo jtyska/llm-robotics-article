@@ -1,0 +1,24 @@
+import random
+
+def get_action(cart_position, cart_velocity, pole_angle, pole_angular_velocity):
+    x = cart_position
+    v = cart_velocity
+    a = pole_angle
+    w = pole_angular_velocity
+
+    if abs(a) >= 22:
+        return 1 if a > 0 else 2
+    elif abs(a) >= 3:
+        return 2 if a > 0 else 1
+    elif abs(w) >= 3:
+        return 2 if w > 0 else 1
+    elif abs(a) <= 2 and w != 0:
+        return 2 if w > 0 else 1
+    elif abs(x) >= 18:
+        return 1 if x > 0 else 2
+    elif abs(v) >= 2:
+        return 1 if v > 0 else 2
+    else:
+        return 1 if a > 0 else 2
+
+    return random.randint(1, 2)

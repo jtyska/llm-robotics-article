@@ -1,0 +1,10 @@
+**Constants**  
+- g = 9.81  
+- kE = 1.0  
+- kP_bal = 6.0  
+- kD_bal = 1.5  
+- θ_switch = 0.25 (rad)  
+- θ_dot_thr = 0.8 (rad/s)  
+
+**Derived quantities (from the current observation x, y, angular_velocity)**  
+- θ = atan2(y, x)

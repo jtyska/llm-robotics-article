@@ -1,0 +1,23 @@
+IF |ω₂| > 20  
+ THEN action = 1  
+
+ELSE IF h ≤ 1.0 AND ω₂ > 0.05  
+ THEN action = 2  
+
+ELSE IF h ≤ 1.0 AND ω₂ < -0.05  
+ THEN action = 0  
+
+ELSE IF h ≤ 1.0 AND |ω₂| ≤ 0.05 AND cos₂ < 0  
+ THEN action = 2  
+
+ELSE IF h ≤ 1.0 AND |ω₂| ≤ 0.05 AND cos₂ ≥ 0  
+ THEN action = 0  
+
+ELSE IF h > 1.0 AND ω₂ > 0.05  
+ THEN action = 0  
+
+ELSE IF h > 1.0 AND ω₂ < -0.05  
+ THEN action = 2  
+
+ELSE IF h > 1.0 AND |ω₂| ≤ 0.05  
+ THEN action = 1

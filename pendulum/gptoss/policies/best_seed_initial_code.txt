@@ -1,0 +1,7 @@
+import math, random
+
+def get_action(cos_theta, sin_theta, angular_velocity):
+    theta = math.atan2(sin_theta, cos_theta)
+    # Add rule-based logic here using theta and angular_velocity
+    # If no rule matches, return a random action
+    return random.uniform(-2, 2)

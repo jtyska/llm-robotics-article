@@ -1,0 +1,43 @@
+**Rules**
+
+```
+c1 = obs[0]          # cos(theta1)
+s1 = obs[1]          # sin(theta1)
+c2 = obs[2]          # cos(theta2)
+s2 = obs[3]          # sin(theta2)
+v1 = obs[4]          # angular velocity of joint 1
+v2 = obs[5]          # angular velocity of joint 2
+
+h = -c1 - (c1*c2 - s1*s2)   # tip‑height indicator
+```
+
+1. **Goal / near‑goal**
+```
+IF h > 1.0                                   THEN action = 1
+ELSE IF h > 0.92 AND abs(v2) < 0.4          THEN action = 1
+```
+
+2. **Priming phase (first link still below vertical)**
+```
+ELSE IF c1 > 0.0
+    THEN IF v2 > 0.25                       THEN action = 2
+    ELSE IF v2 < -0.25                      THEN action = 0
+    ELSE IF s2 > 0.0                        THEN action = 2
+    ELSE IF s2 < 0.0                        THEN action = 0
+    ELSE                                    THEN action = 1
+```
+
+3. **Swing‑up / balancing phase (first link already above vertical)**
+```
+ELSE                                            # c1 <= 0.0
+    IF abs(v2) > 0.35
+        THEN IF v2 * s2 < 0
+                THEN IF v2 > 0               THEN action = 0
+                     ELSE                  THEN action = 2
+             ELSE IF v2 * s2 > 0
+                THEN IF v2 > 0               THEN action = 2
+                     ELSE                  THEN action = 0
+    ELSE
+        IF s2 > 0.15                         THEN action = 2
+        ELSE IF s2 < -0.15                    THEN action = 0
+        ELSE                                 THEN action = 1

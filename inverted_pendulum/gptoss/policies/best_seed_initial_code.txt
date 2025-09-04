@@ -1,0 +1,30 @@
+import random
+
+def get_action(cart_position, pole_angle, cart_velocity, pole_angular_velocity):
+    # If none of the rule conditions are met, return a random action
+    if not (abs(pole_angle) > 0.02 or abs(pole_angular_velocity) > 0.02 or
+            abs(cart_position) > 0.05 or abs(cart_velocity) > 0.05):
+        return random.uniform(-3, 3)
+
+    # Compute A based on pole angle and angular velocity
+    if abs(pole_angle) > 0.02 or abs(pole_angular_velocity) > 0.02:
+        A = 2.0 * pole_angle + 1.0 * pole_angular_velocity
+    else:
+        A = 0.0
+
+    # Compute B based on cart position and velocity
+    if abs(cart_position) > 0.05 or abs(cart_velocity) > 0.05:
+        B = 0.5 * cart_position + 0.5 * cart_velocity
+    else:
+        B = 0.0
+
+    # Combine and clip the raw force
+    F_raw = A - B
+    if F_raw > 3.0:
+        action = 3.0
+    elif F_raw < -3.0:
+        action = -3.0
+    else:
+        action = F_raw
+
+    return action

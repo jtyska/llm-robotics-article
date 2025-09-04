@@ -1,0 +1,6 @@
+def get_action(cos_theta, sin_theta, angular_velocity):
+    import math, random
+    theta = math.atan2(sin_theta, cos_theta)
+    # No specific rule applied; use default random action
+    action = random.uniform(-2.0, 2.0)
+    return max(min(action, 2.0), -2.0)

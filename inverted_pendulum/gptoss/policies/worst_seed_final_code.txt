@@ -1,0 +1,8 @@
+def get_action(cart_position, pole_angle, cart_velocity, pole_angular_velocity):
+    import math, random
+    if not (math.isfinite(cart_position) and math.isfinite(pole_angle) and math.isfinite(cart_velocity) and math.isfinite(pole_angular_velocity)):
+        return 0.0
+    else:
+        tilt_raw = (abs(pole_angle) - 0.05) / (0.18 - 0.05)
+        return tilt_raw
+    return random.uniform(-3, 3)

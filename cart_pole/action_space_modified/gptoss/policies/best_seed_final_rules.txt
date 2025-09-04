@@ -1,0 +1,9 @@
+IF x < -2.0 THEN action = 2  
+ELSE IF x > 2.0 THEN action = 1  
+ELSE IF θ > 0.05 THEN action = 2  
+ELSE IF θ < -0.05 THEN action = 1  
+ELSE IF |θ| ≤ 0.05 AND θ̇ > 0.5 THEN action = 2  
+ELSE IF |θ| ≤ 0.05 AND θ̇ < -0.5 THEN action = 1  
+ELSE IF |x| ≤ 2.0 AND ẋ > 0 THEN action = 2  
+ELSE IF |x| ≤ 2.0 AND ẋ ≤ 0 THEN action = 1  
+ELSE action = 2

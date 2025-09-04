@@ -1,0 +1,19 @@
+import random
+
+def get_action(cart_position, pole_angle, cart_velocity, pole_angular_velocity):
+    F = None
+    if abs(pole_angle) > 0.15:
+        F = -2.5 * pole_angle - 1.0 * pole_angular_velocity
+    elif abs(pole_angle) <= 0.15 and abs(pole_angular_velocity) > 0.05:
+        F = -1.0 * pole_angular_velocity
+    elif abs(pole_angle) <= 0.15 and abs(pole_angular_velocity) <= 0.05 and abs(cart_position) > 0.5:
+        F = -1.5 * cart_position - 0.8 * cart_velocity
+    elif (abs(pole_angle) <= 0.15 and abs(pole_angular_velocity) <= 0.05 and
+          abs(cart_position) <= 0.5 and abs(cart_velocity) > 0.2):
+        F = -0.8 * cart_velocity
+    else:
+        F = 0.0
+    if F is None:
+        F = random.uniform(-3, 3)
+    F = max(-3.0, min(3.0, F))
+    return F

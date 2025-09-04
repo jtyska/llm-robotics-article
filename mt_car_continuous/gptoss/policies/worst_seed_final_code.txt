@@ -1,0 +1,37 @@
+import random
+
+def get_action(car_position, car_velocity):
+    # Rule 1: goal reached
+    if car_position >= 0.45:
+        return 0.0
+    # Rule 2: moving left too fast
+    if car_velocity < -0.001:
+        return -1.0
+    # Rule 3: far left, push right
+    if car_position < -0.30:
+        return 1.0
+
+    # Compute control action
+    dist = 0.45 - car_position          # distance to goal (positive)
+    velErr = -car_velocity              # desired velocity error
+
+    if dist <= 0.02:
+        kp, kv = 3.0, 0.8
+    elif dist <= 0.05:
+        kp, kv = 2.0, 0.5
+    else:
+        kp, kv = 0.5, 0.1
+
+    raw = kp * dist + kv * velErr
+    scale = max(0.5, 1.0 - 0.5 * abs(car_velocity))  # limit to [0.5, 1.0]
+    raw *= scale
+
+    if raw > 1.0:
+        action = 1.0
+    elif raw < -1.0:
+        action = -1.0
+    else:
+        action = raw
+
+    # Default fallback (should not be reached)
+    return action if action is not None else random.uniform(-1, 1)

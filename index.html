@@ -74,10 +74,12 @@
       </select>
     </span>
     &nbsp;&nbsp;
+    <!-- Model selection for environments with multiple models -->
     <span id="modelContainer" style="display:none;">
       <label for="modelSelect">Select Model: </label>
       <select id="modelSelect">
         <option value="deepseek">deepseek</option>
+        <option value="gptoss">gptoss</option>
         <option value="llama">llama</option>
         <option value="mistral">mistral</option>
         <option value="qwen">qwen</option>
@@ -140,13 +142,49 @@
       
       let basePath = env;
       
-      // For Cart Pole, include version and model.
+      // Handle different environment structures
       if (env === "cart_pole") {
+        // Cart Pole has version and model structure
         document.getElementById('versionContainer').style.display = "inline-block";
         document.getElementById('modelContainer').style.display = "inline-block";
+        // Restore full model options for cart_pole
+        const modelSelect = document.getElementById('modelSelect');
+        const currentModel = modelSelect.value;
+        modelSelect.innerHTML = `
+          <option value="deepseek">deepseek</option>
+          <option value="gptoss">gptoss</option>
+          <option value="llama">llama</option>
+          <option value="mistral">mistral</option>
+          <option value="qwen">qwen</option>
+        `;
+        // Preserve selection if it's valid, otherwise default to deepseek
+        if (["deepseek", "gptoss", "llama", "mistral", "qwen"].includes(currentModel)) {
+          modelSelect.value = currentModel;
+        } else {
+          modelSelect.value = "deepseek";
+        }
         const version = document.getElementById('versionSelect').value;
         const model = document.getElementById('modelSelect').value;
         basePath = `${env}/${version}/${model}`;
+      } else if (["acrobot", "inverted_pendulum", "mt_car_continuous", "mt_car_discrete", "pendulum"].includes(env)) {
+        // These environments have gptoss and qwen models
+        document.getElementById('versionContainer').style.display = "none";
+        document.getElementById('modelContainer').style.display = "inline-block";
+        // Update model options to show only gptoss and qwen
+        const modelSelect = document.getElementById('modelSelect');
+        const currentModel = modelSelect.value;
+        modelSelect.innerHTML = `
+          <option value="gptoss">gptoss</option>
+          <option value="qwen">qwen</option>
+        `;
+        // Preserve selection if it's valid, otherwise default to gptoss
+        if (currentModel === "gptoss" || currentModel === "qwen") {
+          modelSelect.value = currentModel;
+        } else {
+          modelSelect.value = "gptoss";
+        }
+        const model = document.getElementById('modelSelect').value;
+        basePath = `${env}/${model}`;
       } else {
         document.getElementById('versionContainer').style.display = "none";
         document.getElementById('modelContainer').style.display = "none";
@@ -252,6 +290,9 @@
         const version = document.getElementById('versionSelect').value;
         const model = document.getElementById('modelSelect').value;
         basePath = `${env}/${version}/${model}`;
+      } else if (["acrobot", "inverted_pendulum", "mt_car_continuous", "mt_car_discrete", "pendulum"].includes(env)) {
+        const model = document.getElementById('modelSelect').value;
+        basePath = `${env}/${model}`;
       }
       const logPath = `${basePath}/logs/${seed}_seed.log`;
       window.open(logPath, '_blank');

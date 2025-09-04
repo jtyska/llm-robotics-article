@@ -1,0 +1,36 @@
+IF position ≥ 0.45 THEN  
+ action = 0.0  
+
+ELSE IF velocity < ‑0.001 THEN  
+ action = ‑1.0  
+
+ELSE IF position < ‑0.30 THEN  
+ action = +1.0  
+
+ELSE  
+ dist = 0.45 ‑ position   // distance to goal (positive)  
+ velErr = ‑velocity     // desired velocity error  
+
+ IF dist ≤ 0.02 THEN  
+  kp = 3.0; kv = 0.8  
+
+ ELSE IF dist ≤ 0.05 THEN  
+  kp = 2.0; kv = 0.5  
+
+ ELSE  
+  kp = 0.5; kv = 0.1  
+
+ raw = kp * dist + kv * velErr  
+
+ scale = max(0.5, 1.0 ‑ 0.5 * abs(velocity)) // limit to [0.5, 1.0]  
+
+ raw = raw * scale  
+
+ IF raw > +1.0 THEN  
+  action = +1.0  
+
+ ELSE IF raw < ‑1.0 THEN  
+  action = ‑1.0  
+
+ ELSE  
+  action = raw 

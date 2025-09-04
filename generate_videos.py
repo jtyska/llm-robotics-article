@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 import os
 import sys
-import gym
+import gymnasium as gym
 import time
 import importlib.util
 import traceback
+import numpy as np
 
-#os.environ["LIBGL_ALWAYS_SOFTWARE"] = "1"
-#os.environ["MUJOCO_GL"] = "egl"
-#os.environ["XKB_DEFAULT_PATH"] = "/usr/share/X11/xkb"
+os.environ["MUJOCO_GL"] = "glfw"
+os.environ["DISPLAY"] = ":99"
 
 
 def load_policy(policy_path):
@@ -41,7 +41,6 @@ def record_video_for_policy(get_action, video_path, gym_env_name='InvertedPendul
       - get_action: function taking observation and returning an action.
       - video_path: The target video file path (its directory will be used to store the videos).
       - gym_env_name: Name of the Gym environment.
-      - max_steps: Maximum steps per episode.
       - num_episodes: Number of episodes to record.
       - timeout: Maximum time (in seconds) to wait for the video file to appear.
     """
@@ -53,7 +52,7 @@ def record_video_for_policy(get_action, video_path, gym_env_name='InvertedPendul
     # Use the base name (without extension) as the video name prefix.
     video_name_prefix = os.path.splitext(os.path.basename(video_path))[0]
     
-    # Create the gym environment with a render mode that produces frames.
+    # Create the gym environment with a      mode that produces frames.
     env = gym.make(gym_env_name, render_mode="rgb_array")
     
     # Wrap the environment with RecordVideo.
@@ -71,12 +70,31 @@ def record_video_for_policy(get_action, video_path, gym_env_name='InvertedPendul
         # Get snapshot of existing video files (recursively).
         files_before = list_video_files(video_dir)
         
-        observation = env.reset()
+        observation, info = env.reset()
         done = False
         steps = 0
         
-        while not done and steps < max_steps:
-            action = get_action(observation)
+        while not done:
+            # Handle different function signatures - some expect individual parameters, others expect the full observation
+            try:
+                # Try calling with unpacked observation (for functions expecting individual parameters)
+                action = get_action(*observation)
+            except TypeError:
+                # Fall back to passing the full observation array
+                action = get_action(observation)
+            
+            # Ensure action is properly formatted
+            if isinstance(action, (list, np.ndarray)):
+                action = action[0] if len(action) > 0 else 0.0
+            
+            # Handle discrete vs continuous action spaces
+            if hasattr(env.action_space, 'low'):  # Continuous action space
+                action = np.array([action], dtype=np.float32)
+                action = np.clip(action, env.action_space.low, env.action_space.high)
+            else:  # Discrete action space
+                action = int(action)
+                action = np.clip(action, 0, env.action_space.n - 1)
+            
             result = env.step(action)
             # Handle both new (5-tuple) and old (4-tuple) return types.
             if len(result) == 5:

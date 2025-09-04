@@ -1,0 +1,7 @@
+IF θ > 0.05 OR (θ > 0 AND θ̇ > 0) THEN action = right (2)  
+ELSE IF θ < -0.05 OR (θ < 0 AND θ̇ < 0) THEN action = left (1)  
+ELSE IF |θ| ≤ 0.05 AND |θ̇| ≤ 0.02 AND x > 1.8 AND ẋ > 0 THEN action = left (1)  
+ELSE IF |θ| ≤ 0.05 AND |θ̇| ≤ 0.02 AND x < -1.8 AND ẋ < 0 THEN action = right (2)  
+ELSE IF |θ| ≤ 0.05 AND |θ̇| ≤ 0.02 AND ẋ > 0.5 THEN action = left (1)  
+ELSE IF |θ| ≤ 0.05 AND |θ̇| ≤ 0.02 AND ẋ < -0.5 THEN action = right (2)  
+ELSE IF θ ≥ 0 THEN action = right (2) ELSE action = left (1)

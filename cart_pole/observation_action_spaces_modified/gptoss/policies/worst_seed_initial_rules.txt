@@ -1,0 +1,13 @@
+IF   cart_position > 20               THEN action = 1      // push left
+ELSE IF cart_position < -20          THEN action = 2      // push right
+
+ELSE IF   pole_angle > 5             THEN action = 2      // push right
+ELSE IF   pole_angle < -5            THEN action = 1      // push left
+
+ELSE IF   pole_angular_velocity > 5 THEN action = 2      // push right
+ELSE IF   pole_angular_velocity < -5 THEN action = 1     // push left
+
+ELSE IF   cart_velocity > 5          THEN action = 1      // push left
+ELSE IF   cart_velocity < -5         THEN action = 2      // push right
+
+ELSE                                   action = 2      // default

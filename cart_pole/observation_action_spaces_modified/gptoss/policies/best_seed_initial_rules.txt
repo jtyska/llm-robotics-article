@@ -1,0 +1,6 @@
+IF cart_position > 20 THEN action = 1  
+ELSE IF cart_position < -20 THEN action = 2  
+ELSE IF abs(pole_angle) > 15 AND pole_angle > 0 THEN action = 2  
+ELSE IF abs(pole_angle) > 15 AND pole_angle < 0 THEN action = 1  
+ELSE IF pole_angle + pole_angular_velocity > 0 THEN action = 2  
+ELSE action = 1

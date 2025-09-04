@@ -1,0 +1,30 @@
+def get_action(cos_theta, sin_theta, angular_velocity):
+    import math, random
+    # constants
+    g = 9.81
+    kE = 1.0
+    kP_bal = 6.0
+    kD_bal = 1.5
+    theta_switch = 0.25
+    theta_dot_thr = 0.8
+    # derived angle
+    theta = math.atan2(sin_theta, cos_theta)
+    # balance controller near upright
+    if abs(theta) < theta_switch:
+        torque = -kP_bal * theta - kD_bal * angular_velocity
+    else:
+        # energy based swing‑up controller
+        # total mechanical energy (assuming unit mass and length)
+        energy = 0.5 * angular_velocity**2 + g * (1 - cos_theta)
+        desired_energy = 0.0  # upright energy
+        sign = 1.0 if angular_velocity * cos_theta >= 0 else -1.0
+        torque = kE * (desired_energy - energy) * sign
+        # optional velocity threshold to avoid excessive torque
+        if abs(angular_velocity) < theta_dot_thr:
+            torque = 0.0
+    # clamp torque to action limits
+    torque = max(-2.0, min(2.0, torque))
+    # fallback random action (should not be reached)
+    if torque is None:
+        torque = random.uniform(-2.0, 2.0)
+    return torque

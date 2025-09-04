@@ -1,0 +1,29 @@
+def get_action(cos_theta1, sin_theta1, cos_theta2, sin_theta2, ang_vel_theta1, ang_vel_theta2):
+    import random
+    # compute sin(θ1+θ2) and cos(θ1+θ2) from individual sines and cosines
+    sin_sum = sin_theta1 * cos_theta2 + cos_theta1 * sin_theta2
+    cos_sum = cos_theta1 * cos_theta2 - sin_theta1 * sin_theta2
+    vel2 = ang_vel_theta2
+
+    # Rule 1
+    if sin_sum > 0 and vel2 > 0:
+        return 2
+    # Rule 2
+    if sin_sum < 0 and vel2 < 0:
+        return 0
+    # Rule 3
+    if sin_sum > 0 and vel2 < 0:
+        return 1
+    # Rule 4
+    if sin_sum < 0 and vel2 > 0:
+        return 1
+    # Rule 5
+    if abs(sin_sum) <= 0.1 and abs(vel2) <= 0.2 and cos_sum < 0:
+        return 2
+    # Rule 6
+    if abs(sin_sum) <= 0.1 and abs(vel2) <= 0.2 and cos_sum >= 0:
+        return 0
+    # Rule 7 (otherwise)
+    return 1
+    # Default random action if no rule matched (unreachable due to Rule 7)
+    return random.randint(0, 2)

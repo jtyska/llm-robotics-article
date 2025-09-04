@@ -1,0 +1,9 @@
+IF p < 0 AND v < 0.2 THEN a = 2  
+ELSE IF p < 0 AND v >= 0.2 AND v < 0.5 THEN a = 1  
+ELSE IF p < 0 AND v >= 0.5 THEN a = 0  
+ELSE IF 0 ≤ p < 0.3 AND v < 0.4 THEN a = 2  
+ELSE IF 0 ≤ p < 0.3 AND v >= 0.4 AND v < 0.8 THEN a = 1  
+ELSE IF 0 ≤ p < 0.3 AND v >= 0.8 THEN a = 0  
+ELSE IF p ≥ 0.3 AND v < 0 THEN a = 2  
+ELSE IF p ≥ 0.3 AND v >= 0 THEN a = 1  
+ELSE a = 2

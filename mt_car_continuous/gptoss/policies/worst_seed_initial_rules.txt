@@ -1,0 +1,11 @@
+IF p < -0.3 AND v < 0 THEN a = -1.0  
+ELSE IF p < -0.3 AND v ≥ 0 THEN a = 0.0  
+ELSE IF -0.3 ≤ p < -0.05 AND v > -0.02 THEN a = -0.8  
+ELSE IF -0.3 ≤ p < -0.05 AND v ≤ -0.02 THEN a = 0.0  
+ELSE IF -0.05 ≤ p < 0.0 AND v < 0 THEN a = 0.6  
+ELSE IF -0.05 ≤ p < 0.0 AND v ≥ 0 THEN a = 0.0  
+ELSE IF 0.0 ≤ p < 0.35 AND v < 0.02 THEN a = 0.7  
+ELSE IF 0.0 ≤ p < 0.35 AND v ≥ 0.02 THEN a = 0.0  
+ELSE IF 0.35 ≤ p < 0.45 AND v < 0.04 THEN a = 0.4  
+ELSE IF p ≥ 0.45 THEN a = 0.0  
+ELSE a = 0.0

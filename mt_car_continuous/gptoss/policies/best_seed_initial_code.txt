@@ -1,0 +1,22 @@
+import random
+
+def get_action(car_position, car_velocity):
+    p = car_position
+    v = car_velocity
+    if p >= 0.45:
+        return 0.0
+    elif v > 0.02 and p > 0.30:
+        a = 0.2 * (0.45 - p)
+        return max(min(a, 1), -1)
+    elif v > 0.02 and p <= 0.30:
+        return 0.6
+    elif v < -0.02 and p < -0.05:
+        return -0.6
+    elif v < -0.02 and p >= -0.05:
+        return -0.3
+    elif abs(v) <= 0.02 and p < -0.4:
+        return -0.8
+    elif abs(v) <= 0.02 and -0.4 < p < 0.0:
+        return 0.8
+    else:
+        return random.uniform(-1, 1)

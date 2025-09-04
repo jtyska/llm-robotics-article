@@ -1,0 +1,7 @@
+IF p >= 0.5                         THEN action = 1
+ELSE IF p > 0.45 AND v > 0.04       THEN action = 0
+ELSE IF p > 0.30 AND v > 0.02       THEN action = 1
+ELSE IF v < -0.01                    THEN action = 2
+ELSE IF p < -0.20                    THEN action = 2
+ELSE IF v < 0.02                     THEN action = 2
+ELSE                                 THEN action = 1

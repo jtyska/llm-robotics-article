@@ -1,0 +1,5 @@
+IF |θ + 0.9·θ̇| > 0.012 THEN
+IF (θ + 0.9·θ̇) > 0 THEN action = 2 ELSE action = 1
+ELSE IF x > 2.0 THEN action = 1
+ELSE IF x < -2.0 THEN action = 2
+ELSE action = 2

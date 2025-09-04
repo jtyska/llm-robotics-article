@@ -1,0 +1,20 @@
+IF |a| >= 22:
+    ACTION = 1 IF a > 0 ELSE 2
+
+ELIF |a| >= 3:
+    ACTION = 2 IF a > 0 ELSE 1
+
+ELIF |w| >= 3:
+    ACTION = 2 IF w > 0 ELSE 1
+
+ELIF |a| <= 2 AND w != 0:
+    ACTION = 2 IF w > 0 ELSE 1
+
+ELIF |x| >= 18:
+    ACTION = 1 IF x > 0 ELSE 2
+
+ELIF |v| >= 2:
+    ACTION = 1 IF v > 0 ELSE 2
+
+ELSE:
+    ACTION = 1 IF a > 0 ELSE 2

@@ -1,0 +1,31 @@
+# Constants
+GOAL_POS   = 0.5
+GRAVITY    = 0.0025   # effective gravity term
+# Helper: minimal velocity needed to reach the goal from the current position
+#   v_needed = sqrt( max(0, 2*GRAVITY*( sin(3*GOAL_POS) - sin(3*position) )) )
+function v_needed(position):
+    delta = sin(3*GOAL_POS) - sin(3*position)
+    if delta <= 0:
+        return 0.0
+    return sqrt(2 * GRAVITY * delta)
+
+# --------------------------------------------------------------
+# Decision rules (evaluated each timestep)
+# --------------------------------------------------------------
+IF position >= GOAL_POS THEN
+    action = 1                         # already at goal → coast
+ELSE IF position < 0 THEN
+    IF velocity < 0 THEN
+        action = 0                     # accelerate left
+    ELSE IF velocity < v_needed(position) THEN
+        action = 2                     # accelerate right
+    ELSE
+        action = 1                     # coast
+    ENDIF
+ELSE
+    IF velocity < v_needed(position) THEN
+        action = 2                     # accelerate right
+    ELSE
+        action = 1                     # coast
+    ENDIF
+ENDIF
