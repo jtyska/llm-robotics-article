@@ -1,7 +1,7 @@
 # LLM-Robotics Article Supplementary Data
 
 This repository contains supplementary material for the article **LLMs for sensory-motor control: Combining
-in-context and iterative learning** by Jônata Tyska Carvalho and Stefano Nolfi ([arXiv:2506.04867](https://arxiv.org/html/2506.04867v1)). It includes:
+in-context and iterative learning** by Jônata Tyska Carvalho and Stefano Nolfi ([arXiv:2506.04867](https://arxiv.org/abs/2506.04867v1)). It includes:
 
 - 📹 **Videos** demonstrating the behaviors produced by LLM-driven policies  
 - 📄 **Logs** of LLM interactions and system responses  
