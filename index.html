@@ -202,8 +202,8 @@
         document.getElementById('toggleFinalBtn').style.display = "inline-block";
         document.getElementById('toggleCartPoleFinalBtn').style.display = "none";
         finalVideoPath = (finalVideoMode === "original") ?
-            `${env}/videos/${seed}_seed_best_final.mp4` :
-            `${env}/videos/${seed}_seed_best_final_same_strategy.mp4`;
+            `${basePath}/videos/${seed}_seed_best_final.mp4` :
+            `${basePath}/videos/${seed}_seed_best_final_same_strategy.mp4`;
       } else if (env === "cart_pole") {
         // Cart Pole special case.
         const version = document.getElementById('versionSelect').value;
@@ -249,12 +249,14 @@
       finalVideoMode = (finalVideoMode === "original") ? "same_strategy" : "original";
       const env = document.getElementById('envSelect').value;
       const seed = document.getElementById('seedSelect').value;
+      const model = document.getElementById('modelSelect').value;
+      const basePath = `${env}/${model}`;
       let finalVideoPath = "";
       if (finalVideoMode === "original") {
-        finalVideoPath = `${env}/videos/${seed}_seed_best_final.mp4`;
+        finalVideoPath = `${basePath}/videos/${seed}_seed_best_final.mp4`;
         this.textContent = "Watch Another Trial";
       } else {
-        finalVideoPath = `${env}/videos/${seed}_seed_best_final_same_strategy.mp4`;
+        finalVideoPath = `${basePath}/videos/${seed}_seed_best_final_same_strategy.mp4`;
         this.textContent = "Watch Best Trial";
       }
       document.getElementById('finalVideo').src = finalVideoPath;
