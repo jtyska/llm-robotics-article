@@ -1,7 +1,6 @@
 # LLM-Robotics Article Supplementary Data
 
-This repository contains supplementary material for the article **Sensory-motor control with large language models via iterative policy refinement
-** by Jônata Tyska Carvalho and Stefano Nolfi ([Scientific Reports](https://www.nature.com/articles/s41598-026-42091-0) - [arXiv:2506.04867](https://arxiv.org/abs/2506.04867)). It includes:
+This repository contains supplementary material for the article **Sensory-motor control with large language models via iterative policy refinement** by Jônata Tyska Carvalho and Stefano Nolfi [Scientific Reports](https://www.nature.com/articles/s41598-026-42091-0). It includes:
 
 - 📹 **Videos** demonstrating the behaviors produced by LLM-driven policies  
 - 📄 **Logs** of LLM interactions and system responses  
